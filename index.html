@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CheNan Liu — Senior Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --hero-bg:#FBE4BB;    /* matches hero-illustration.png background */
+    --cream:#F9E2B6;      /* warmed to match hero bg — surface & light text */
+    --cream-2:#F2D69E;    /* warm deeper accent */
+    --cream-card:#FDECC4; /* warm card surface, a touch lighter than body */
+    --ink:#21408F;        /* dark blue text */
+    --blue:#1F3FB0;       /* vivid royal blue */
+    --blue-bright:#2A52C9;
+    --green:#1C5740;      /* forest green */
+    --green-deep:#143F2E;
+    --red:#D8452A;        /* vermillion */
+    --red-deep:#B83518;
+    --yellow:#E9A62C;     /* mustard */
+    --ink-soft:#2c4ea0;
+    --shadow: 4px 4px 0 rgba(20,30,40,.18);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--hero-bg);
+    color:var(--ink);
+    font-family:"Libre Franklin",system-ui,sans-serif;
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* paper grain overlay */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:9999;pointer-events:none;
+    opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1,h2,h3,h4{font-family:"Archivo Black",sans-serif;font-weight:400;margin:0;line-height:.98;letter-spacing:-.01em;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
+
+  /* ============ zigzag pieces ============ */
+  .top-band{height:24px;background:var(--blue);}
+  .top-teeth{
+    height:17px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='17'%3E%3Cpolygon points='0,0 34,0 17,17' fill='%231F3FB0'/%3E%3C/svg%3E") repeat-x;
+    background-size:34px 17px;
+  }
+  .zz{
+    height:8px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8'%3E%3Cpath d='M0 8 L4.5 0 L9 8 L13.5 0 L18 8' fill='none' stroke='%23E9A62C' stroke-width='2.2'/%3E%3C/svg%3E") repeat-x;
+    background-size:18px 8px;
+  }
+  .zz.red{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8'%3E%3Cpath d='M0 8 L4.5 0 L9 8 L13.5 0 L18 8' fill='none' stroke='%23D8452A' stroke-width='2.2'/%3E%3C/svg%3E");}
+  .zz.blue{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8'%3E%3Cpath d='M0 8 L4.5 0 L9 8 L13.5 0 L18 8' fill='none' stroke='%231F3FB0' stroke-width='2.2'/%3E%3C/svg%3E");}
+
+  /* ============ header / nav ============ */
+  header{position:sticky;top:0;z-index:500;}
+  .nav-bar{background:var(--cream);}
+  .nav-inner{display:flex;align-items:flex-start;justify-content:space-between;padding-top:22px;padding-bottom:18px;}
+  .logo{font-family:"Archivo Black",sans-serif;font-size:30px;line-height:.92;letter-spacing:.02em;}
+  .logo .l1{color:var(--blue);display:block;}
+  .logo .l2{color:var(--red);display:block;}
+  .logo .ul{width:58px;margin-top:6px;}
+  nav.menu{display:flex;gap:34px;align-items:center;padding-top:8px;}
+  nav.menu a{
+    font-family:"Archivo Black",sans-serif;font-size:15px;letter-spacing:.05em;
+    color:var(--blue);position:relative;padding-bottom:10px;transition:color .15s;
+  }
+  nav.menu a::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:7px;opacity:0;transition:opacity .15s;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8'%3E%3Cpath d='M0 8 L4.5 0 L9 8 L13.5 0 L18 8' fill='none' stroke='%23E9A62C' stroke-width='2.2'/%3E%3C/svg%3E") repeat-x;
+    background-size:18px 8px;
+  }
+  nav.menu a:hover,nav.menu a.active{color:var(--red);}
+  nav.menu a:hover::after,nav.menu a.active::after{opacity:1;}
+  .menu-btn{display:none;}
+
+  /* ============ buttons ============ */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:"Archivo Black",sans-serif;font-size:15px;letter-spacing:.05em;
+    padding:15px 26px;border:2.5px solid transparent;cursor:pointer;transition:transform .12s, box-shadow .12s, background .15s, color .15s;
+    box-shadow:var(--shadow);
+  }
+  .btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 rgba(20,30,40,.18);}
+  .btn-solid{background:var(--green);color:var(--cream);border-color:var(--green);}
+  .btn-solid:hover{background:var(--green-deep);}
+  .btn-out{background:transparent;color:var(--red);border-color:var(--red);box-shadow:none;}
+  .btn-out:hover{background:var(--red);color:var(--cream);}
+
+  /* ============ hero ============ */
+  .hero{padding:34px 0 30px;}
+  .hero-grid{display:grid;grid-template-columns:0.82fr 1.18fr;gap:40px;align-items:center;}
+  .eyebrow{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.22em;color:var(--green);text-transform:uppercase;margin-bottom:18px;}
+  .hero h1{font-size:clamp(56px,7vw,104px);}
+  .hero h1 .a{color:var(--green);}
+  .hero h1 .b{color:var(--yellow);font-size:.6em;vertical-align:.18em;margin:0 .12em;}
+  .hero h1 .c{color:var(--red);display:block;}
+  .hero .zz{width:300px;margin:22px 0 26px;}
+  .hero p{max-width:480px;margin:0 0 18px;color:var(--ink);font-weight:500;}
+  .hero .actions{display:flex;gap:16px;margin-top:30px;flex-wrap:wrap;}
+  /* let the illustration bleed toward the right viewport edge on wide screens
+     so it reads larger next to the intro (gutter kept = .wrap padding) */
+  .hero-art{position:relative;margin-right:min(0px,calc(620px - 50vw));}
+  .hero-art img{width:100%;height:auto;display:block;}
+
+  /* ============ section heading w/ zigzag wings ============ */
+  .sec-head{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 14px;}
+  .sec-head h2{font-size:34px;color:var(--blue);letter-spacing:.04em;text-align:center;}
+  .sec-head .wing{flex:0 0 90px;height:8px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8'%3E%3Cpath d='M0 8 L4.5 0 L9 8 L13.5 0 L18 8' fill='none' stroke='%23E9A62C' stroke-width='2.2'/%3E%3C/svg%3E") repeat-x;background-size:18px 8px;}
+
+  /* ============ what i do ============ */
+  .whatido{padding:30px 0 70px;}
+  .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:26px;margin-top:40px;}
+  .card{text-align:center;}
+  .card .tile{
+    width:78px;height:78px;border-radius:14px;margin:0 auto 16px;
+    display:flex;align-items:center;justify-content:center;border:2.5px solid var(--green-deep);
+    box-shadow:var(--shadow);transition:transform .18s;
+  }
+  .card:hover .tile{transform:translateY(-6px) rotate(-3deg);}
+  .card h3{font-size:16px;letter-spacing:.03em;color:var(--green);margin-bottom:8px;}
+  .card p{font-size:14.5px;color:var(--ink-soft);font-weight:500;margin:0;line-height:1.45;}
+  .tile.t-yellow{background:var(--yellow);}
+  .tile.t-green{background:var(--green);}
+  .tile.t-red{background:var(--red);}
+  .tile.t-blue{background:var(--blue);}
+
+  /* ============ about ============ */
+  .about{background:var(--green);color:var(--cream);position:relative;}
+  .about .teeth-top{height:17px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='17'%3E%3Cpolygon points='17,0 34,17 0,17' fill='%231C5740'/%3E%3C/svg%3E") repeat-x;background-size:34px 17px;margin-top:-17px;}
+  .about-inner{padding:64px 0 70px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .about h2{font-size:48px;color:var(--cream);margin-bottom:22px;}
+  .about h2 em{color:var(--yellow);font-style:normal;}
+  .about p{color:#f3e7c8;font-weight:500;margin:0 0 16px;opacity:.95;}
+  .about .label{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:18px;}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2.5px solid rgba(244,231,197,.35);}
+  .stat{padding:24px;border:1.25px solid rgba(244,231,197,.18);}
+  .stat .n{font-family:"Archivo Black",sans-serif;font-size:44px;color:var(--yellow);line-height:1;}
+  .stat .t{font-size:13.5px;color:#f3e7c8;font-weight:600;margin-top:8px;letter-spacing:.02em;}
+
+  /* ============ experience ============ */
+  .exp{padding:70px 0 30px;}
+  .timeline{margin-top:46px;position:relative;}
+  .tl-line{position:absolute;left:170px;top:6px;bottom:6px;width:3px;background:repeating-linear-gradient(var(--yellow) 0 9px,transparent 9px 16px);}
+  .job{display:grid;grid-template-columns:150px 1fr;gap:46px;position:relative;padding-bottom:38px;}
+  .job .when{text-align:right;padding-top:2px;}
+  .job .when .yr{font-family:"Archivo Black",sans-serif;font-size:17px;color:var(--red);}
+  .job .when .loc{font-family:"Space Mono",monospace;font-size:11.5px;color:var(--ink-soft);letter-spacing:.04em;margin-top:6px;}
+  .job .dot{position:absolute;left:163px;top:6px;width:18px;height:18px;border-radius:50%;background:var(--cream);border:3.5px solid var(--green);z-index:2;}
+  .job.lead .dot{background:var(--red);border-color:var(--red-deep);}
+  .job .body{}
+  .job h3{font-size:21px;color:var(--green);margin-bottom:3px;}
+  .job .co{font-family:"Space Mono",monospace;font-size:13px;color:var(--blue);font-weight:700;letter-spacing:.03em;margin-bottom:12px;}
+  .job ul{margin:0;padding-left:20px;}
+  .job li{color:var(--ink);font-weight:500;font-size:15.5px;margin-bottom:6px;}
+  .job li::marker{color:var(--yellow);}
+  .badge{display:inline-block;font-family:"Space Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cream);background:var(--red);padding:3px 9px;margin-left:10px;vertical-align:3px;border-radius:3px;}
+
+  .earlier{margin-top:14px;}
+  .earlier h4{font-family:"Space Mono",monospace;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 22px 196px;}
+  .early-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-left:196px;}
+  .early{background:var(--cream-card);border:2.5px solid var(--green);padding:18px 20px;box-shadow:var(--shadow);}
+  .early .r{font-family:"Archivo Black",sans-serif;font-size:15px;color:var(--green);margin-bottom:4px;line-height:1.1;}
+  .early .c{font-family:"Space Mono",monospace;font-size:12px;color:var(--blue);font-weight:700;margin-bottom:6px;}
+  .early .y{font-size:13px;color:var(--ink-soft);font-weight:600;}
+
+  /* ============ skills ============ */
+  .skills{background:var(--blue);color:var(--cream);}
+  .skills .teeth-top{height:17px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='17'%3E%3Cpolygon points='17,0 34,17 0,17' fill='%231F3FB0'/%3E%3C/svg%3E") repeat-x;background-size:34px 17px;margin-top:-17px;}
+  .skills-inner{padding:60px 0 70px;}
+  .skills h2{font-size:42px;color:var(--cream);text-align:center;}
+  .skills .sub{font-family:"Space Mono",monospace;text-align:center;color:var(--yellow);font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin:14px 0 44px;}
+  .skill-rows{display:grid;grid-template-columns:1fr;gap:22px;max-width:920px;margin:0 auto;}
+  .srow{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:baseline;padding-bottom:22px;border-bottom:2px dashed rgba(244,231,197,.3);}
+  .srow:last-child{border-bottom:none;}
+  .srow .cat{font-family:"Archivo Black",sans-serif;font-size:17px;color:var(--yellow);letter-spacing:.02em;}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;}
+  .pill{font-family:"Space Mono",monospace;font-weight:700;font-size:14px;color:var(--cream);border:2px solid rgba(249,226,182,.55);padding:7px 15px;border-radius:999px;transition:background .15s,color .15s,border-color .15s;}
+  .pill:hover{background:var(--yellow);color:var(--green-deep);border-color:var(--yellow);}
+
+  /* ============ contact ============ */
+  .contact{padding:74px 0 60px;text-align:center;}
+  .contact h2{font-size:clamp(44px,6vw,80px);color:var(--green);}
+  .contact h2 em{color:var(--red);font-style:normal;}
+  .contact .zz{width:280px;margin:24px auto 26px;}
+  .contact p{max-width:540px;margin:0 auto 30px;font-weight:500;color:var(--ink);}
+  .contact .links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;}
+  .meta{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase;}
+
+  /* ============ footer ============ */
+  footer{background:var(--blue);color:var(--cream);}
+  .foot-teeth{height:17px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='17'%3E%3Cpolygon points='17,0 34,17 0,17' fill='%231F3FB0'/%3E%3C/svg%3E") repeat-x;background-size:34px 17px;margin-top:-17px;}
+  .foot-inner{padding:34px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+  .foot-inner .logo{font-size:22px;}
+  .foot-inner .logo .l1{color:#cdd9ff;}
+  .foot-inner .logo .l2{color:var(--yellow);}
+  .foot-inner .fmeta{font-family:"Space Mono",monospace;font-size:12.5px;color:#cdd9ff;letter-spacing:.06em;}
+
+  /* ============ reveal anim ============ */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+  html.force-show .reveal{opacity:1 !important;transform:none !important;transition:none !important;}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  /* ============ responsive ============ */
+  @media (max-width:1000px){
+    .hero-grid{grid-template-columns:1fr;gap:30px;}
+    .hero-art{order:-1;max-width:620px;}
+    .cards{grid-template-columns:repeat(2,1fr);gap:30px 24px;}
+    .about-inner{grid-template-columns:1fr;gap:34px;}
+    .early-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:760px){
+    .wrap{padding:0 22px;}
+    body{font-size:17px;}
+    nav.menu{display:none;}
+    .menu-btn{display:flex;align-items:center;font-family:"Archivo Black",sans-serif;font-size:13px;color:var(--blue);border:2.5px solid var(--blue);background:transparent;padding:9px 14px;cursor:pointer;}
+    nav.menu.open{display:flex;position:absolute;top:74px;right:22px;flex-direction:column;background:var(--cream-card);border:2.5px solid var(--blue);padding:18px 22px;gap:16px;box-shadow:var(--shadow);}
+    .cards{grid-template-columns:1fr;}
+    .tl-line{left:9px;}
+    .job{grid-template-columns:1fr;gap:8px;padding-left:34px;}
+    .job .when{text-align:left;display:flex;gap:14px;align-items:baseline;}
+    .job .when .loc{margin-top:0;}
+    .job .dot{left:2px;}
+    .earlier h4,.early-grid{margin-left:0;}
+    .early-grid{grid-template-columns:1fr;}
+    .srow{grid-template-columns:1fr;gap:12px;}
+    .skills h2{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- top zigzag border -->
+  <div class="top-band"></div>
+  <div class="top-teeth"></div>
+
+  <header>
+    <div class="nav-bar">
+      <div class="wrap nav-inner">
+        <a href="#top" class="logo" aria-label="CheNan Liu home">
+          <span class="l1">CHENAN</span>
+          <span class="l2">LIU</span>
+          <div class="zz ul"></div>
+        </a>
+        <nav class="menu" id="menu">
+          <a href="#about">ABOUT</a>
+          <a href="#work">WORK</a>
+          <a href="#skills">SKILLS</a>
+          <a href="#experience">EXPERIENCE</a>
+          <a href="#contact">CONTACT</a>
+        </nav>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">MENU</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">Senior Backend Engineer · Technical Lead</div>
+          <h1>
+            <span class="a">BUILD</span><span class="b">WITH</span>
+            <span class="c">PURPOSE</span>
+          </h1>
+          <div class="zz"></div>
+          <p>Hi, I'm CheNan — a senior backend engineer who loves turning complex problems into scalable, reliable systems.</p>
+          <p>For 13+ years I've designed high-concurrency distributed systems across gaming, media, and platform domains — and led the teams that ship them. Let's build something solid together.</p>
+          <div class="actions">
+            <a href="#experience" class="btn btn-solid">VIEW MY WORK</a>
+            <a href="#contact" class="btn btn-out">GET IN TOUCH</a>
+          </div>
+        </div>
+        <div class="hero-art reveal">
+          <img src="assets/hero-illustration.png" alt="Illustrated portrait of CheNan Liu surrounded by a Taiwan cityscape collage" />
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT I DO -->
+    <section class="whatido" id="work">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="wing"></div>
+          <h2>WHAT I DO</h2>
+          <div class="wing"></div>
+        </div>
+        <div class="cards">
+          <div class="card reveal">
+            <div class="tile t-yellow">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <rect x="7" y="6" width="26" height="8" rx="2" fill="#143F2E"/>
+                <rect x="7" y="16" width="26" height="8" rx="2" fill="#143F2E"/>
+                <rect x="7" y="26" width="26" height="8" rx="2" fill="#143F2E"/>
+                <circle cx="12" cy="10" r="1.6" fill="#E9A62C"/>
+                <circle cx="12" cy="20" r="1.6" fill="#E9A62C"/>
+                <circle cx="12" cy="30" r="1.6" fill="#E9A62C"/>
+              </svg>
+            </div>
+            <h3>BACKEND DEVELOPMENT</h3>
+            <p>Design API services and backend architecture from the ground up.</p>
+          </div>
+          <div class="card reveal">
+            <div class="tile t-green">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#F4E7C5" stroke-width="2.6">
+                <circle cx="20" cy="8" r="4" fill="#F4E7C5" stroke="none"/>
+                <circle cx="9" cy="30" r="4" fill="#E9A62C" stroke="none"/>
+                <circle cx="31" cy="30" r="4" fill="#D8452A" stroke="none"/>
+                <path d="M20 12 L9 26 M20 12 L31 26 M11 30 H29" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>SYSTEM ARCHITECTURE</h3>
+            <p>Architect microservices and distributed systems that scale.</p>
+          </div>
+          <div class="card reveal">
+            <div class="tile t-red">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M11 28 a7 7 0 0 1 0.6 -13.9 a9 9 0 0 1 17.2 2 a6 6 0 0 1 -1.8 11.9 Z" fill="#F4E7C5"/>
+                <path d="M20 19 v9 M20 28 l-4 -4 M20 28 l4 -4" stroke="#D8452A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>CLOUD INFRASTRUCTURE</h3>
+            <p>Deploy &amp; automate on AWS and GCP with solid CI/CD pipelines.</p>
+          </div>
+          <div class="card reveal">
+            <div class="tile t-blue">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M6 28 a14 14 0 0 1 28 0" fill="none" stroke="#F4E7C5" stroke-width="2.8" stroke-linecap="round"/>
+                <path d="M20 28 L29 15" stroke="#E9A62C" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="20" cy="28" r="3.4" fill="#F4E7C5"/>
+              </svg>
+            </div>
+            <h3>PERFORMANCE</h3>
+            <p>Optimize high-concurrency, real-time systems for speed.</p>
+          </div>
+          <div class="card reveal">
+            <div class="tile t-yellow">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M11 7 V33" stroke="#143F2E" stroke-width="2.8" stroke-linecap="round"/>
+                <path d="M11 8 H30 L26 13 L30 18 H11 Z" fill="#D8452A" stroke="#143F2E" stroke-width="1.6" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>TECH LEADERSHIP</h3>
+            <p>Lead engineering teams and drive technical decision-making.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="teeth-top"></div>
+      <div class="wrap about-inner">
+        <div class="reveal">
+          <div class="label">// About me</div>
+          <h2>SYSTEMS THAT<br/><em>HOLD UP</em> UNDER LOAD.</h2>
+          <p>I'm a senior backend engineer and technical lead based in New Taipei City, Taiwan. I've spent my career building production-critical systems where reliability and concurrency aren't optional — gaming backends, media platforms, lottery and payment systems, and enterprise ERP migrations.</p>
+          <p>I work primarily in the Go, Node.js and .NET ecosystems, with deep experience in microservices, gRPC, asynchronous messaging, and cloud infrastructure. I love translating fuzzy business requirements into clean, maintainable systems — and helping teams move faster while keeping quality high.</p>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><div class="n">13+</div><div class="t">Years building backends</div></div>
+          <div class="stat"><div class="n">.NET</div><div class="t">&amp; GO &amp; Node.js</div></div>
+          <div class="stat"><div class="n">5★</div><div class="t">Engineers led as lead</div></div>
+          <div class="stat"><div class="n">0→1</div><div class="t">Systems shipped to prod</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="exp" id="experience">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="wing"></div>
+          <h2>EXPERIENCE</h2>
+          <div class="wing"></div>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-line"></div>
+
+          <div class="job lead reveal">
+            <div class="dot"></div>
+            <div class="when"><div class="yr">2026</div><div class="loc">Taipei, TW</div></div>
+            <div class="body">
+              <h3>Backend Engineer</h3>
+              <div class="co">Flash Co., Ltd. · Jan–Apr 2026</div>
+              <ul>
+                <li>Led backend development for a 0→1 mobile app, designing API services and architecture from scratch.</li>
+                <li>Integrated third-party services — ECPay payment gateway, eSIM providers, and Google Authentication.</li>
+                <li>Owned GCP infrastructure: deployment, monitoring, and CI/CD automation pipelines.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="job reveal">
+            <div class="dot"></div>
+            <div class="when"><div class="yr">2025</div><div class="loc">Hsinchu, TW</div></div>
+            <div class="body">
+              <h3>Senior Backend Developer</h3>
+              <div class="co">Canopus GBS · Mar–Nov 2025</div>
+              <ul>
+                <li>Delivered ERP migration projects with enterprise partners including PSMC and Tata Electronics.</li>
+                <li>Gathered and translated business requirements into technical specifications and documentation.</li>
+                <li>Established the dev environment and defined coding standards to improve team consistency.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="job reveal">
+            <div class="dot"></div>
+            <div class="when"><div class="yr">2024</div><div class="loc">Taipei, TW</div></div>
+            <div class="body">
+              <h3>Senior Software Developer</h3>
+              <div class="co">KKTV · May–Nov 2024</div>
+              <ul>
+                <li>Developed and maintained a CMS platform supporting media content operations.</li>
+                <li>Containerized backend services with Docker, improving deployment consistency across environments.</li>
+                <li>Collaborated cross-functionally to ship new features and improve maintainability.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="job reveal">
+            <div class="dot"></div>
+            <div class="when"><div class="yr">2022–23</div><div class="loc">Taipei, TW</div></div>
+            <div class="body">
+              <h3>Senior Game Developer</h3>
+              <div class="co">Future Tech · Jun 2022–Oct 2023</div>
+              <ul>
+                <li>Built Telegram chatbot services and backend systems with Node.js and PostgreSQL.</li>
+                <li>Developed game server components in Lua supporting real-time, event-driven workflows.</li>
+                <li>Delivered POC projects to validate new product ideas and technical feasibility.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="job lead reveal">
+            <div class="dot"></div>
+            <div class="when"><div class="yr">2021–22</div><div class="loc">Taipei, TW</div></div>
+            <div class="body">
+              <h3>Backend Lead <span class="badge">Team Lead</span></h3>
+              <div class="co">Jxtech · Jun 2021–Jun 2022</div>
+              <ul>
+                <li>Led a team of 5 engineers delivering CMS and high-transaction backend systems.</li>
+                <li>Designed and implemented backend architecture using .NET MVC and MSSQL.</li>
+                <li>Improved delivery efficiency through structured task management and code review.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="job reveal">
+            <div class="dot"></div>
+            <div class="when"><div class="yr">2020–21</div><div class="loc">Taipei, TW</div></div>
+            <div class="body">
+              <h3>Senior Backend Developer</h3>
+              <div class="co">FFglobaltech · Oct 2020–Apr 2021</div>
+              <ul>
+                <li>Built high-concurrency game backend services in Go.</li>
+                <li>Implemented inter-service communication via gRPC and async messaging with RabbitMQ.</li>
+                <li>Designed synchronization mechanisms for real-time game state consistency.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="job lead reveal">
+            <div class="dot"></div>
+            <div class="when"><div class="yr">2017–20</div><div class="loc">Taipei, TW</div></div>
+            <div class="body">
+              <h3>Technical Lead / Senior .NET Developer <span class="badge">Tech Lead</span></h3>
+              <div class="co">Lunfa Tech &amp; Falcontek · Jun 2017–Jan 2020</div>
+              <ul>
+                <li>Led development of a lottery platform (C#, .NET Web API, MySQL) and high-traffic web platforms.</li>
+                <li>Designed system architecture and database schemas for transaction-heavy workloads.</li>
+                <li>Integrated third-party payment systems and built financial transaction &amp; back-office modules.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="earlier reveal">
+          <h4>// Earlier roles</h4>
+          <div class="early-grid">
+            <div class="early">
+              <div class="r">Senior Backend Engineer</div>
+              <div class="c">Paradis-soft</div>
+              <div class="y">2016–17 · Go, MySQL, Elasticsearch</div>
+            </div>
+            <div class="early">
+              <div class="r">Project Leader Engineer</div>
+              <div class="c">Boya Corporation</div>
+              <div class="y">2015–16 · .NET platform systems</div>
+            </div>
+            <div class="early">
+              <div class="r">Senior Backend Engineer</div>
+              <div class="c">Unalis Corporation</div>
+              <div class="y">2014–15 · .NET, Redis, SQL Server</div>
+            </div>
+            <div class="early">
+              <div class="r">Backend Engineer</div>
+              <div class="c">Early Career</div>
+              <div class="y">2010–13 · .NET, Java, PHP, AWS/Azure</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="skills" id="skills">
+      <div class="teeth-top"></div>
+      <div class="wrap skills-inner">
+        <h2 class="reveal">CORE SKILLS</h2>
+        <div class="sub reveal">// The toolkit I build with</div>
+        <div class="skill-rows">
+          <div class="srow reveal"><div class="cat">LANGUAGES</div><div class="pills"><span class="pill">Go</span><span class="pill">C#</span><span class="pill">JavaScript</span></div></div>
+          <div class="srow reveal"><div class="cat">BACKEND</div><div class="pills"><span class="pill">.NET Core</span><span class="pill">ASP.NET MVC</span><span class="pill">Node.js</span></div></div>
+          <div class="srow reveal"><div class="cat">ARCHITECTURE</div><div class="pills"><span class="pill">Microservices</span><span class="pill">Distributed Systems</span><span class="pill">RESTful APIs</span></div></div>
+          <div class="srow reveal"><div class="cat">INFRASTRUCTURE</div><div class="pills"><span class="pill">Docker</span><span class="pill">AWS</span><span class="pill">GCP</span></div></div>
+          <div class="srow reveal"><div class="cat">DATABASES</div><div class="pills"><span class="pill">PostgreSQL</span><span class="pill">MySQL</span><span class="pill">MSSQL</span><span class="pill">Redis</span></div></div>
+          <div class="srow reveal"><div class="cat">MESSAGING / RPC</div><div class="pills"><span class="pill">RabbitMQ</span><span class="pill">gRPC</span></div></div>
+          <div class="srow reveal"><div class="cat">PRACTICES</div><div class="pills"><span class="pill">System Design</span><span class="pill">Performance Optimization</span><span class="pill">Code Review</span><span class="pill">Agile</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div class="reveal">
+          <h2>LET'S BUILD<br/>SOMETHING <em>SOLID</em></h2>
+          <div class="zz"></div>
+          <p>Got a system that needs to scale, a team that needs technical direction, or a 0→1 backend to stand up? I'd love to hear about it.</p>
+          <div class="links">
+            <a href="mailto:rexa122@gmail.com" class="btn btn-solid">GET IN TOUCH</a>
+            <a href="assets/CheNan-Liu-Resume.pdf" target="_blank" class="btn btn-out">DOWNLOAD CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    // mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+    // scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    // safety net: guarantee content is visible even if the animation engine is throttled/paused
+    setTimeout(() => document.documentElement.classList.add('force-show'), 1600);
+
+    // active nav on scroll
+    const sections = ['about','work','skills','experience','contact'];
+    const links = {};
+    document.querySelectorAll('nav.menu a').forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      links[id] = a;
+    });
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          Object.values(links).forEach(l => l.classList.remove('active'));
+          const id = e.target.id;
+          if (links[id]) links[id].classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  </script>
+</body>
+</html>
