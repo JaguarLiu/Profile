@@ -100,16 +100,14 @@
   .btn-out{background:transparent;color:var(--red);border-color:var(--red);box-shadow:none;}
   .btn-out:hover{background:var(--red);color:var(--cream);}
 
-  /* ============ hero ============ */
-  .hero{padding:34px 0 30px;}
-  .hero-grid{display:grid;grid-template-columns:0.82fr 1.18fr;gap:40px;align-items:center;}
-  .eyebrow{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.22em;color:var(--green);text-transform:uppercase;margin-bottom:18px;}
-  .hero h1{font-size:clamp(56px,7vw,104px);}
-  .hero h1 .a{color:var(--green);}
-  .hero h1 .b{color:var(--yellow);font-size:.6em;vertical-align:.18em;margin:0 .12em;}
-  .hero h1 .c{color:var(--red);display:block;}
-  .hero .zz{width:300px;margin:22px 0 26px;}
-  .hero p{max-width:480px;margin:0 0 18px;color:var(--ink);font-weight:500;}
+  /* ============ hero (no headline — lead paragraph anchors the copy) ============ */
+  .hero{padding:48px 0 40px;}
+  .hero-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:44px;align-items:center;}
+  .eyebrow{font-family:"Space Mono",monospace;font-size:15px;letter-spacing:.2em;color:var(--green);text-transform:uppercase;margin-bottom:20px;}
+  .hero .zz{width:260px;margin:0 0 28px;}
+  .hero p{max-width:520px;margin:0 0 18px;color:var(--ink);font-weight:500;font-size:19px;}
+  /* promote the opening line to a lead statement in place of the removed h1 */
+  .hero-copy p:first-of-type{font-size:clamp(26px,3vw,38px);line-height:1.4;font-weight:800;color:var(--ink);margin-bottom:22px;}
   .hero .actions{display:flex;gap:16px;margin-top:30px;flex-wrap:wrap;}
   /* let the illustration bleed toward the right viewport edge on wide screens
      so it reads larger next to the intro (gutter kept = .wrap padding) */
@@ -138,6 +136,23 @@
   .tile.t-green{background:var(--green);}
   .tile.t-red{background:var(--red);}
   .tile.t-blue{background:var(--blue);}
+
+  /* ============ projects ============ */
+  .projects{padding:30px 0 70px;}
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;}
+  .proj{display:flex;flex-direction:column;background:var(--cream-card);border:2.5px solid var(--green);box-shadow:var(--shadow);padding:26px 24px 24px;transition:transform .18s,box-shadow .18s;}
+  .proj:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 rgba(20,30,40,.2);}
+  .proj .num{font-family:"Archivo Black",sans-serif;font-size:14px;color:var(--cream);background:var(--green);width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+  .proj.p2 .num{background:var(--red);}
+  .proj.p3 .num{background:var(--blue);}
+  .proj h3{font-family:"Archivo Black",sans-serif;font-size:22px;color:var(--green);margin:0 0 5px;letter-spacing:.01em;}
+  .proj .type{font-family:"Space Mono",monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
+  .proj p{font-size:15px;color:var(--ink);font-weight:500;line-height:1.5;margin:0 0 18px;}
+  .proj .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;margin-bottom:18px;}
+  .proj .tags span{font-family:"Space Mono",monospace;font-size:11.5px;font-weight:700;color:var(--green-deep);border:2px solid var(--green);border-radius:999px;padding:4px 11px;}
+  .proj .visit{font-family:"Archivo Black",sans-serif;font-size:13px;letter-spacing:.04em;color:var(--red);display:inline-flex;align-items:center;gap:7px;align-self:flex-start;transition:gap .15s,color .15s;}
+  .proj .visit:hover{color:var(--red-deep);gap:11px;}
+  .proj .visit.muted{color:var(--ink-soft);}
 
   /* ============ about ============ */
   .about{background:var(--green);color:var(--cream);position:relative;}
@@ -221,6 +236,7 @@
     .hero-grid{grid-template-columns:1fr;gap:30px;}
     .hero-art{order:-1;max-width:620px;}
     .cards{grid-template-columns:repeat(2,1fr);gap:30px 24px;}
+    .proj-grid{grid-template-columns:repeat(2,1fr);}
     .about-inner{grid-template-columns:1fr;gap:34px;}
     .early-grid{grid-template-columns:repeat(2,1fr);}
   }
@@ -231,6 +247,7 @@
     .menu-btn{display:flex;align-items:center;font-family:"Archivo Black",sans-serif;font-size:13px;color:var(--blue);border:2.5px solid var(--blue);background:transparent;padding:9px 14px;cursor:pointer;}
     nav.menu.open{display:flex;position:absolute;top:74px;right:22px;flex-direction:column;background:var(--cream-card);border:2.5px solid var(--blue);padding:18px 22px;gap:16px;box-shadow:var(--shadow);}
     .cards{grid-template-columns:1fr;}
+    .proj-grid{grid-template-columns:1fr;}
     .tl-line{left:9px;}
     .job{grid-template-columns:1fr;gap:8px;padding-left:34px;}
     .job .when{text-align:left;display:flex;gap:14px;align-items:baseline;}
@@ -260,6 +277,7 @@
         <nav class="menu" id="menu">
           <a href="#about">ABOUT</a>
           <a href="#work">WORK</a>
+          <a href="#projects">PROJECTS</a>
           <a href="#skills">SKILLS</a>
           <a href="#experience">EXPERIENCE</a>
           <a href="#contact">CONTACT</a>
@@ -276,10 +294,6 @@
       <div class="wrap hero-grid">
         <div class="hero-copy reveal">
           <div class="eyebrow">Senior Backend Engineer · Technical Lead</div>
-          <h1>
-            <span class="a">BUILD</span><span class="b">WITH</span>
-            <span class="c">PURPOSE</span>
-          </h1>
           <div class="zz"></div>
           <p>Hi, I'm CheNan — a senior backend engineer who loves turning complex problems into scalable, reliable systems.</p>
           <p>For 13+ years I've designed high-concurrency distributed systems across gaming, media, and platform domains — and led the teams that ship them. Let's build something solid together.</p>
@@ -359,6 +373,43 @@
             </div>
             <h3>TECH LEADERSHIP</h3>
             <p>Lead engineering teams and drive technical decision-making.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects" id="projects">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="wing"></div>
+          <h2>SELECTED PROJECTS</h2>
+          <div class="wing"></div>
+        </div>
+        <div class="proj-grid">
+          <div class="proj p1 reveal">
+            <div class="num">01</div>
+            <h3>ClocDot</h3>
+            <div class="type">Attendance SaaS</div>
+            <p>A clock-in platform built for remote and hybrid teams — track attendance accurately wherever people work.</p>
+            <div class="tags"><span>Remote</span><span>Hybrid</span><span>Clock-in</span></div>
+            <a href="https://clocdot.com" target="_blank" rel="noopener" class="visit">Visit ClocDot.com →</a>
+          </div>
+          <div class="proj p2 reveal">
+            <div class="num">02</div>
+            <h3>Turn2SQL</h3>
+            <div class="type">Data Tooling</div>
+            <p>A web UI that turns Excel sheets into raw SQL — generate and run table operations without hand-writing queries.</p>
+            <div class="tags"><span>Excel</span><span>Raw SQL</span><span>Web Tool</span></div>
+            <span class="visit muted">Internal tool</span>
+          </div>
+          <div class="proj p3 reveal">
+            <div class="num">03</div>
+            <h3>BudPay</h3>
+            <div class="type">AI Bookkeeping</div>
+            <p>Bookkeeping over web and LINE, using Gemini to parse natural language into records — making expense tracking and bill-splitting effortless.</p>
+            <div class="tags"><span>LINE Bot</span><span>Gemini AI</span><span>Bill Splitting</span></div>
+            <span class="visit muted">Side project</span>
           </div>
         </div>
       </div>
@@ -573,7 +624,7 @@
     setTimeout(() => document.documentElement.classList.add('force-show'), 1600);
 
     // active nav on scroll
-    const sections = ['about','work','skills','experience','contact'];
+    const sections = ['about','work','projects','skills','experience','contact'];
     const links = {};
     document.querySelectorAll('nav.menu a').forEach(a => {
       const id = a.getAttribute('href').slice(1);
